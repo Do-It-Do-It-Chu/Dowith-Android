@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -57,6 +58,7 @@ kotlin {
 dependencies {
 
     implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation("androidx.core:core-ktx:1.8.0")
 
@@ -119,5 +121,9 @@ dependencies {
     // coil
     val coilVersion = "2.4.0"
     implementation("io.coil-kt:coil-compose:$coilVersion")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
 }
