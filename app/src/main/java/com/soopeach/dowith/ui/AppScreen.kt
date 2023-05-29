@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -21,6 +22,8 @@ import com.soopeach.dowith.ui.screen.personal.PersonalTodoScreen
 import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.screen.Screen.Companion.bottomNavigationItems
 import com.soopeach.dowith.ui.screen.team.TeamTodoScreen
+import com.soopeach.dowith.ui.theme.DoWithColors
+import com.soopeach.dowith.ui.theme.DoWithTypography
 
 @Composable
 fun AppScreen() {
@@ -34,13 +37,20 @@ fun AppScreen() {
             val currentDestination = navBackStackEntry?.destination
 
             if (currentDestination?.route in bottomNavigationItems.map { it.route }) {
-                BottomNavigation() {
+                BottomNavigation(
+                    backgroundColor = Color.White,
+                ) {
                     bottomNavigationItems.forEach { screen ->
                         BottomNavigationItem(
                             icon = {
                                 Icon(requireNotNull(screen.icon), contentDescription = null)
                             },
-                            label = { Text(stringResource(requireNotNull(screen.resourceId))) },
+                            label = {
+                                Text(
+                                    text = stringResource(requireNotNull(screen.resourceId)),
+                                    style = DoWithTypography.Caption1
+                                )
+                            },
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                             onClick = {
                                 navController.navigate(screen.route) {
@@ -50,7 +60,9 @@ fun AppScreen() {
                                     launchSingleTop = true
                                     restoreState = true
                                 }
-                            }
+                            },
+                            selectedContentColor = DoWithColors.orange1000,
+                            unselectedContentColor = DoWithColors.gray400
                         )
                     }
                 }
