@@ -21,7 +21,7 @@ data class TodoItem(
 
         val DUMMY
             get() = TodoItem(
-                0L,
+                (0..1000L).shuffled().first(),
                 dummyTodoList.shuffled().first(),
                 "2023-05-30T10:04:22.139Z",
                 listOf(true, false).shuffled().first()
