@@ -15,11 +15,11 @@ sealed class Screen(
     val arguments: List<NamedNavArgument> = emptyList()
 ) {
 
-    object PersonalTodo : Screen("personalTodo", R.string.personal_todo, PersonalTodoMenu)
-    object TeamTodo : Screen("teamTodo", R.string.team_todo, TeamTodoMenu)
+    object PersonalTodoMain : Screen("personalTodoMain", R.string.personal_todo, PersonalTodoMenu)
+    object TeamTodoMain : Screen("teamTodoMain", R.string.team_todo, TeamTodoMenu)
     object Done : Screen("done", R.string.done, DoneMenu)
 
     companion object {
-        val bottomNavigationItems = listOf(PersonalTodo, TeamTodo, Done)
+        val bottomNavigationItems = listOf(PersonalTodoMain, TeamTodoMain, Done)
     }
 }

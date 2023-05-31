@@ -18,10 +18,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.soopeach.dowith.ui.screen.done.DoneScreen
-import com.soopeach.dowith.ui.screen.personal.PersonalTodoScreen
 import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.screen.Screen.Companion.bottomNavigationItems
-import com.soopeach.dowith.ui.screen.team.TeamTodoScreen
+import com.soopeach.dowith.ui.screen.personal.PersonalTodoMainScreen
+import com.soopeach.dowith.ui.screen.team.TeamTodoMainScreen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 
@@ -71,15 +71,15 @@ fun AppScreen() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.PersonalTodo.route,
+            startDestination = Screen.PersonalTodoMain.route,
             Modifier.padding(innerPadding)
         ) {
 
-            composable(Screen.PersonalTodo.route) {
-                PersonalTodoScreen(navController)
+            composable(Screen.PersonalTodoMain.route) {
+                PersonalTodoMainScreen(navController)
             }
-            composable(Screen.TeamTodo.route) {
-                TeamTodoScreen(navController)
+            composable(Screen.TeamTodoMain.route) {
+                TeamTodoMainScreen(navController)
             }
             composable(Screen.Done.route) {
                 DoneScreen(navController)
