@@ -4,7 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun PersonalTodoScreen(
+fun PersonalTodoMainScreen(
     navController: NavController
 ) {
+    PersonalTodoMainContent()
+}
+
+@Composable
+fun PersonalTodoMainContent() {
+
 }
