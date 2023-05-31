@@ -1,4 +1,4 @@
-package com.soopeach.data
+package com.soopeach.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -38,8 +38,8 @@ class NetworkModule {
     }
 
     companion object {
-        // TODO
-        private const val BASE_URL = "TODO"
+        // TODO: Set API URL
+        private const val BASE_URL = "https://api.github.com/"
     }
 
 }
