@@ -21,6 +21,7 @@ import com.soopeach.dowith.ui.screen.done.DoneScreen
 import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.screen.Screen.Companion.bottomNavigationItems
 import com.soopeach.dowith.ui.screen.personal.PersonalTodoMainScreen
+import com.soopeach.dowith.ui.screen.personal.PersonalTodoMoreScreen
 import com.soopeach.dowith.ui.screen.team.TeamTodoMainScreen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
@@ -83,6 +84,10 @@ fun AppScreen() {
             }
             composable(Screen.Done.route) {
                 DoneScreen(navController)
+            }
+
+            composable(Screen.PersonalTodoMore.route) {
+                PersonalTodoMoreScreen(navController)
             }
 
         }
