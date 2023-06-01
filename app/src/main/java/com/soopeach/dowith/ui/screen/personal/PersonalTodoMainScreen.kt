@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.SimplifiedTodoContainer
+import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.viewmodel.PersonalTodoMainState
 import com.soopeach.dowith.viewmodel.PersonalTodoMainViewModel
@@ -29,16 +30,23 @@ fun PersonalTodoMainScreen(
     val viewModel = hiltViewModel<PersonalTodoMainViewModel>()
     val state by viewModel.collectAsState()
 
-    PersonalTodoMainContent(state) {
-        viewModel.setTodoToggle(it)
-    }
+    PersonalTodoMainContent(
+        state,
+        onTodoItemClicked = {
+            viewModel.setTodoToggle(it)
+        },
+        onMoreClicked = {
+            navController.navigate(Screen.PersonalTodoMore.route)
+        }
+    )
 
 }
 
 @Composable
 fun PersonalTodoMainContent(
     state: PersonalTodoMainState,
-    onTodoItemClicked: (Long) -> Unit = {}
+    onTodoItemClicked: (Long) -> Unit = {},
+    onMoreClicked: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -64,7 +72,9 @@ fun PersonalTodoMainContent(
             state.todayTodoItems.getDataOrNull()?.let { todoItems ->
                 SimplifiedTodoContainer(todoItems.take(2), onTodoIconClicked = {
                     onTodoItemClicked(it)
-                })
+                }) {
+                    onMoreClicked()
+                }
             }
         }
     }
