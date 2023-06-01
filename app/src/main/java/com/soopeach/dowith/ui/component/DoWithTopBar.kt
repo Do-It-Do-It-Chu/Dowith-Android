@@ -44,41 +44,42 @@ fun DoWithTopBar(
         ) {
 
             navigationIcon?.invoke() ?: run {
+
                 Image(
                     modifier = Modifier.size(60.dp, 23.dp),
                     contentScale = ContentScale.Crop,
                     imageVector = Logo,
                     contentDescription = "두윗 로고"
                 )
-            }
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
 
-                Icon(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clip(shape = CircleShape)
-                        .clickable {
-                            onNotificationClicked()
-                        },
-                    imageVector = NotificationIcon,
-                    contentDescription = "알림 아이콘",
-                    tint = DoWithColors.gray500
-                )
+                    Icon(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(shape = CircleShape)
+                            .clickable {
+                                onNotificationClicked()
+                            },
+                        imageVector = NotificationIcon,
+                        contentDescription = "알림 아이콘",
+                        tint = DoWithColors.gray500
+                    )
 
-                Icon(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clip(shape = CircleShape)
-                        .clickable {
-                            onMyPageClicked()
-                        },
-                    imageVector = MyPageIcon,
-                    contentDescription = "마이 페이지 아이콘",
-                    tint = DoWithColors.gray500
-                )
+                    Icon(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(shape = CircleShape)
+                            .clickable {
+                                onMyPageClicked()
+                            },
+                        imageVector = MyPageIcon,
+                        contentDescription = "마이 페이지 아이콘",
+                        tint = DoWithColors.gray500
+                    )
+                }
             }
 
         }
