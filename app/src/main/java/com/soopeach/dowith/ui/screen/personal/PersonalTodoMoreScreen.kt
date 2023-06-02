@@ -70,6 +70,9 @@ fun PersonalTodoMoreScreen(
         onTopBarNavigationIconClicked = {
             navController.popBackStack()
         },
+        onDeleteMenuClicked = {
+            viewModel.deleteTodoItem(it)
+        },
         onTodoItemClicked = {
             viewModel.setTodoToggle(it)
         },
@@ -87,6 +90,7 @@ fun PersonalTodoMoreScreen(
 fun PersonalTodoMoreContent(
     state: PersonalTodoMoreState,
     onTopBarNavigationIconClicked: () -> Unit = {},
+    onDeleteMenuClicked: (Long) -> Unit = {},
     onTodoItemClicked: (Long) -> Unit = {},
     onKeyboardActionClicked: (Long, String) -> Unit,
     onTodoContentChanged: (Long, String) -> Unit,
@@ -135,7 +139,10 @@ fun PersonalTodoMoreContent(
                     }
                 },
                 onDeleteButtonClicked = {
-
+                    onDeleteMenuClicked(targetTodoItemId)
+                    bottomSheetScope.launch {
+                        bottomSheetState.hide()
+                    }
                 }
             ) {
 
