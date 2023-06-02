@@ -17,7 +17,8 @@ class TodoDataSourceImpl @Inject constructor(
 
     override suspend fun postTodoToggle(id: Long): TodoItem {
         // TODO: Call Api
-        dummyItems = dummyItems.map { if (it.id == id) it.copy(isChecked = it.isChecked.not()) else it }
+        dummyItems =
+            dummyItems.map { if (it.id == id) it.copy(isChecked = it.isChecked.not()) else it }
         return dummyItems.first { it.id == id }
     }
 
@@ -31,5 +32,12 @@ class TodoDataSourceImpl @Inject constructor(
         // TODO: Call Api
         dummyItems = dummyItems.filter { it.id != id }
         return true
+    }
+
+    override suspend fun postTodoItem(content: String): TodoItem {
+        // TODO: Call Api
+        val newTodoItem = TodoItem.DUMMY.copy(content = content, isChecked = false)
+        dummyItems = dummyItems + newTodoItem
+        return newTodoItem
     }
 }
