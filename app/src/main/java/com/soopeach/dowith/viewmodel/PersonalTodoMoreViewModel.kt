@@ -3,6 +3,7 @@ package com.soopeach.dowith.viewmodel
 import androidx.lifecycle.ViewModel
 import com.soopeach.domain.model.TodoItem
 import com.soopeach.domain.usecase.GetTodayTodoItemsUseCase
+import com.soopeach.domain.usecase.ModifyTodoContentUseCase
 import com.soopeach.domain.usecase.PostTodoToggleUseCase
 import com.soopeach.dowith.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,10 +24,12 @@ data class PersonalTodoMoreState(
 @HiltViewModel
 class PersonalTodoMoreViewModel @Inject constructor(
     private val getTodayTodoItemsUseCase: GetTodayTodoItemsUseCase,
-    private val postTodoToggleUseCase: PostTodoToggleUseCase
-): ViewModel(), ContainerHost<PersonalTodoMoreState, PersonalTodoMoreSideEffect> {
+    private val postTodoToggleUseCase: PostTodoToggleUseCase,
+    private val modifyTodoContentUseCase: ModifyTodoContentUseCase,
+) : ViewModel(), ContainerHost<PersonalTodoMoreState, PersonalTodoMoreSideEffect> {
 
-    override val container = container<PersonalTodoMoreState, PersonalTodoMoreSideEffect>(PersonalTodoMoreState())
+    override val container =
+        container<PersonalTodoMoreState, PersonalTodoMoreSideEffect>(PersonalTodoMoreState())
 
     init {
         getTodayTodoItems()
@@ -52,6 +55,29 @@ class PersonalTodoMoreViewModel @Inject constructor(
             state.copy(todayTodoItems = UiState.Success(
                 previousTodoItems.map {
                     if (it.id == id) it.copy(isChecked = it.isChecked.not()) else it
+                }
+            ))
+        }
+    }
+
+    fun modifyTodoContentInMemory(id: Long, content: String) = intent {
+        reduce {
+            val previousTodoItems = state.todayTodoItems.getDataOrNull() ?: emptyList()
+            state.copy(todayTodoItems = UiState.Success(
+                previousTodoItems.map {
+                    if (it.id == id) it.copy(content = content) else it
+                }
+            ))
+        }
+    }
+
+    fun modifyTodoContent(id: Long, content: String) = intent {
+        val modifiedTodoItem = modifyTodoContentUseCase(id, content)
+        reduce {
+            val previousTodoItems = state.todayTodoItems.getDataOrNull() ?: emptyList()
+            state.copy(todayTodoItems = UiState.Success(
+                previousTodoItems.map {
+                    if (it.id == id) modifiedTodoItem else it
                 }
             ))
         }

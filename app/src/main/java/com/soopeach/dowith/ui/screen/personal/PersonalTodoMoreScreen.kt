@@ -30,9 +30,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.soopeach.domain.model.TodoItem
 import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.NicknameTodoListExplainText
 import com.soopeach.dowith.ui.component.bottomsheet.TodoContainerModalBottomSheetLayout
@@ -63,6 +68,12 @@ fun PersonalTodoMoreScreen(
         onTodoItemClicked = {
             viewModel.setTodoToggle(it)
         },
+        onKeyboardActionClicked = { id, content ->
+            viewModel.modifyTodoContent(id, content)
+        },
+        onTodoContentChanged = { id, content ->
+            viewModel.modifyTodoContentInMemory(id, content)
+        }
     )
 }
 
@@ -72,8 +83,17 @@ fun PersonalTodoMoreContent(
     state: PersonalTodoMoreState,
     onTopBarNavigationIconClicked: () -> Unit = {},
     onTodoItemClicked: (Long) -> Unit = {},
+    onKeyboardActionClicked: (Long, String) -> Unit,
+    onTodoContentChanged: (Long, String) -> Unit,
 ) {
 
+    val focusState = LocalFocusManager.current
+
+    val focusRequester = FocusRequester()
+
+    var targetTodoItemId by remember {
+        mutableStateOf(TodoItem.NOT_SELECTED)
+    }
     var bottomSheetType: TodoContainerModalBottomSheetType by remember {
         mutableStateOf(TodoContainerModalBottomSheetType.More)
     }
@@ -104,7 +124,10 @@ fun PersonalTodoMoreContent(
                 bottomSheetScope,
                 bottomSheetState,
                 onModifyButtonClicked = {
-
+                    focusRequester.requestFocus()
+                    bottomSheetScope.launch {
+                        bottomSheetState.hide()
+                    }
                 },
                 onDeleteButtonClicked = {
 
@@ -187,20 +210,40 @@ fun PersonalTodoMoreContent(
                                 verticalArrangement = Arrangement.spacedBy(16.dp)
                             ) {
 
-                                todoItems.forEach {
+                                todoItems.forEach { todoItem ->
+
                                     item {
+
                                         TodoItemComposable(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            todoItem = it, isMoreIconVisible = true,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .focusRequester(focusRequester)
+                                                .onFocusChanged {},
+                                            todoItem = todoItem,
+                                            isMoreIconVisible = true,
+                                            isEditable = targetTodoItemId == todoItem.id,
                                             onTodoIconClicked = {
-                                                onTodoItemClicked(it.id)
+                                                onTodoItemClicked(todoItem.id)
                                             },
                                             onMoreIconClicked = {
-                                                bottomSheetType = TodoContainerModalBottomSheetType.More
+                                                targetTodoItemId = todoItem.id
+                                                bottomSheetType =
+                                                    TodoContainerModalBottomSheetType.More
                                                 bottomSheetScope.launch {
                                                     bottomSheetState.show()
                                                 }
-                                            })
+                                            },
+                                            onKeyboardActionClicked = {
+                                                focusState.clearFocus()
+                                                onKeyboardActionClicked(
+                                                    todoItem.id,
+                                                    todoItem.content
+                                                )
+                                                targetTodoItemId = TodoItem.NOT_SELECTED
+                                            }
+                                        ) { changedText ->
+                                            onTodoContentChanged(todoItem.id, changedText)
+                                        }
                                     }
                                 }
                             }
