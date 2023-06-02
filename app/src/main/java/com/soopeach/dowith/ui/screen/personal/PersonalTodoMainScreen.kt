@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,10 @@ fun PersonalTodoMainScreen(
 
     val viewModel = hiltViewModel<PersonalTodoMainViewModel>()
     val state by viewModel.collectAsState()
+
+    LaunchedEffect(true) {
+        viewModel.getTodayTodoItems()
+    }
 
     PersonalTodoMainContent(
         state,

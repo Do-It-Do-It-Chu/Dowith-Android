@@ -31,11 +31,7 @@ class PersonalTodoMoreViewModel @Inject constructor(
     override val container =
         container<PersonalTodoMoreState, PersonalTodoMoreSideEffect>(PersonalTodoMoreState())
 
-    init {
-        getTodayTodoItems()
-    }
-
-    private fun getTodayTodoItems() = intent {
+    fun getTodayTodoItems() = intent {
         reduce {
             state.copy(todayTodoItems = UiState.Loading)
         }
@@ -49,12 +45,11 @@ class PersonalTodoMoreViewModel @Inject constructor(
     fun setTodoToggle(id: Long) = intent {
 
         // TODO: Error Handling
-        postTodoToggleUseCase(id)
+        val toggleChangedPost = postTodoToggleUseCase(id)
         reduce {
-            val previousTodoItems = state.todayTodoItems.getDataOrNull() ?: emptyList()
             state.copy(todayTodoItems = UiState.Success(
                 previousTodoItems.map {
-                    if (it.id == id) it.copy(isChecked = it.isChecked.not()) else it
+                    if (it.id == toggleChangedPost.id) toggleChangedPost else it
                 }
             ))
         }
@@ -62,7 +57,6 @@ class PersonalTodoMoreViewModel @Inject constructor(
 
     fun modifyTodoContentInMemory(id: Long, content: String) = intent {
         reduce {
-            val previousTodoItems = state.todayTodoItems.getDataOrNull() ?: emptyList()
             state.copy(todayTodoItems = UiState.Success(
                 previousTodoItems.map {
                     if (it.id == id) it.copy(content = content) else it
@@ -74,7 +68,6 @@ class PersonalTodoMoreViewModel @Inject constructor(
     fun modifyTodoContent(id: Long, content: String) = intent {
         val modifiedTodoItem = modifyTodoContentUseCase(id, content)
         reduce {
-            val previousTodoItems = state.todayTodoItems.getDataOrNull() ?: emptyList()
             state.copy(todayTodoItems = UiState.Success(
                 previousTodoItems.map {
                     if (it.id == id) modifiedTodoItem else it
@@ -82,4 +75,7 @@ class PersonalTodoMoreViewModel @Inject constructor(
             ))
         }
     }
+
+    private val previousTodoItems: List<TodoItem>
+        get() = container.stateFlow.value.todayTodoItems.getDataOrNull() ?: emptyList()
 }

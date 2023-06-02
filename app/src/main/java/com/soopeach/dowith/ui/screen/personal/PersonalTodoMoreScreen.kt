@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,6 +60,10 @@ fun PersonalTodoMoreScreen(
 
     val viewModel = hiltViewModel<PersonalTodoMoreViewModel>()
     val state by viewModel.collectAsState()
+
+    LaunchedEffect(true) {
+        viewModel.getTodayTodoItems()
+    }
 
     PersonalTodoMoreContent(
         state = state,

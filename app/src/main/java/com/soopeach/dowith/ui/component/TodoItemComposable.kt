@@ -59,7 +59,7 @@ fun TodoItemComposable(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            var textFieldValue by remember {
+            var textFieldValue by remember(todoItem.content) {
                 mutableStateOf(
                     TextFieldValue(
                         text = todoItem.content,
