@@ -26,5 +26,7 @@ data class TodoItem(
                 "2023-05-30T10:04:22.139Z",
                 listOf(true, false).shuffled().first()
             )
+
+        const val NOT_SELECTED = -1L
     }
 }
