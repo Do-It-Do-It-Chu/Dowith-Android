@@ -52,7 +52,7 @@ fun TodoItemComposable(
                     .clickable {
                         onTodoIconClicked()
                     },
-                imageVector = if (todoItem.isChecked) TodoIcon else DoneIcon,
+                imageVector = if (todoItem.isChecked) DoneIcon else TodoIcon,
                 contentDescription = "",
                 tint = if (todoItem.isChecked) DoWithColors.orange1000 else DoWithColors.gray400
             )
