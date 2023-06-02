@@ -59,18 +59,10 @@ class PersonalTodoMoreViewModel @Inject constructor(
         }
     }
 
-    fun modifyTodoContentInMemory(id: Long, content: String) = intent {
-        reduce {
-            state.copy(todayTodoItems = UiState.Success(
-                previousTodoItems.map {
-                    if (it.id == id) it.copy(content = content) else it
-                }
-            ))
-        }
-    }
-
     fun modifyTodoContent(id: Long, content: String) = intent {
+
         val modifiedTodoItem = modifyTodoContentUseCase(id, content)
+
         reduce {
             state.copy(todayTodoItems = UiState.Success(
                 previousTodoItems.map {

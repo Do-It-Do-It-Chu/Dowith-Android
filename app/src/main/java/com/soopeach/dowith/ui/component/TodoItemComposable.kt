@@ -35,7 +35,7 @@ fun TodoItemComposable(
     isMoreIconVisible: Boolean = false,
     onTodoIconClicked: () -> Unit = {},
     onMoreIconClicked: () -> Unit = {},
-    onKeyboardActionClicked: () -> Unit = {},
+    onKeyboardActionClicked: (String) -> Unit = {},
     onTextChanged: (String) -> Unit = {},
 ) {
 
@@ -79,7 +79,7 @@ fun TodoItemComposable(
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions {
-                    onKeyboardActionClicked()
+                    onKeyboardActionClicked(textFieldValue.text)
                 }
             )
         }
