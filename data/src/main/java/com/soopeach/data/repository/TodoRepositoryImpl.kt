@@ -15,4 +15,8 @@ class TodoRepositoryImpl @Inject constructor(
     override suspend fun postTodoToggle(id: Long): TodoItem {
         return todoDataSource.postTodoToggle(id)
     }
+
+    override suspend fun putTodoContent(id: Long, content: String): TodoItem {
+        return todoDataSource.putTodoContent(id, content)
+    }
 }

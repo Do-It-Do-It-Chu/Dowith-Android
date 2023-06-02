@@ -8,7 +8,7 @@ class TodoDataSourceImpl @Inject constructor(
     private val client: Retrofit
 ) : TodoDataSource {
 
-    private val dummyItems = List(10) { TodoItem.DUMMY }
+    private var dummyItems = List(10) { TodoItem.DUMMY }
 
     override suspend fun getTodayTodoItems(): List<TodoItem> {
         // TODO: Call Api
@@ -17,6 +17,12 @@ class TodoDataSourceImpl @Inject constructor(
 
     override suspend fun postTodoToggle(id: Long): TodoItem {
         // TODO: Call Api
+        return dummyItems.first { it.id == id }
+    }
+
+    override suspend fun putTodoContent(id: Long, content: String): TodoItem {
+        // TODO: Call Api
+        dummyItems.map { if (it.id == id) it.copy(content = content) else it }
         return dummyItems.first { it.id == id }
     }
 }

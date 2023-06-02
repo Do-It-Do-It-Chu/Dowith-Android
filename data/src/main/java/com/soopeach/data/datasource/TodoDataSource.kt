@@ -7,4 +7,6 @@ interface TodoDataSource {
     suspend fun getTodayTodoItems(): List<TodoItem>
 
     suspend fun postTodoToggle(id: Long): TodoItem
+
+    suspend fun putTodoContent(id: Long, content: String): TodoItem
 }
