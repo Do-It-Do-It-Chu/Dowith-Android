@@ -26,4 +26,10 @@ class TodoDataSourceImpl @Inject constructor(
         dummyItems = dummyItems.map { if (it.id == id) it.copy(content = content) else it }
         return dummyItems.first { it.id == id }
     }
+
+    override suspend fun deleteTodoItem(id: Long): Boolean {
+        // TODO: Call Api
+        dummyItems = dummyItems.filter { it.id != id }
+        return true
+    }
 }

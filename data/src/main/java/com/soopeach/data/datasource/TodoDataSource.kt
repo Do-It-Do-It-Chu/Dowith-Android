@@ -9,4 +9,6 @@ interface TodoDataSource {
     suspend fun postTodoToggle(id: Long): TodoItem
 
     suspend fun putTodoContent(id: Long, content: String): TodoItem
+
+    suspend fun deleteTodoItem(id: Long): Boolean
 }
