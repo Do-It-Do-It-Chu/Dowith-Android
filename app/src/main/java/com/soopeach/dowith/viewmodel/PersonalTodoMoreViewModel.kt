@@ -6,6 +6,7 @@ import com.soopeach.domain.usecase.DeleteTodoUseCase
 import com.soopeach.domain.usecase.GetTodayTodoItemsUseCase
 import com.soopeach.domain.usecase.ModifyTodoContentUseCase
 import com.soopeach.domain.usecase.PostTodoToggleUseCase
+import com.soopeach.domain.usecase.PostTodoUseCase
 import com.soopeach.dowith.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
@@ -27,7 +28,8 @@ class PersonalTodoMoreViewModel @Inject constructor(
     private val getTodayTodoItemsUseCase: GetTodayTodoItemsUseCase,
     private val postTodoToggleUseCase: PostTodoToggleUseCase,
     private val modifyTodoContentUseCase: ModifyTodoContentUseCase,
-    private val deleteTodoUseCase: DeleteTodoUseCase
+    private val deleteTodoUseCase: DeleteTodoUseCase,
+    private val postTodoUseCase: PostTodoUseCase
 ) : ViewModel(), ContainerHost<PersonalTodoMoreState, PersonalTodoMoreSideEffect> {
 
     override val container =
@@ -84,6 +86,17 @@ class PersonalTodoMoreViewModel @Inject constructor(
             if (isDeleted) {
                 getTodayTodoItems()
             }
+        }
+    }
+
+    fun postTodoItem(content: String) = intent {
+        val newTodoItem = postTodoUseCase(content)
+        reduce {
+            state.copy(
+                todayTodoItems = UiState.Success(
+                    previousTodoItems + newTodoItem
+                )
+            )
         }
     }
 

@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -32,6 +34,7 @@ fun AppScreen() {
     val navController = rememberNavController()
 
     Scaffold(
+        modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection()),
         bottomBar = {
 
             val navBackStackEntry by navController.currentBackStackEntryAsState()
