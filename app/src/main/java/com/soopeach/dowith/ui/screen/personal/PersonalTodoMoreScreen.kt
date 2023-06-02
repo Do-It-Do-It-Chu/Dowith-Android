@@ -81,7 +81,12 @@ fun PersonalTodoMoreScreen(
         },
         onTodoContentChanged = { id, content ->
             viewModel.modifyTodoContentInMemory(id, content)
-        }
+        },
+        onCompleteButtonClicked = { todoContents ->
+            todoContents.forEach {  content ->
+                viewModel.postTodoItem(content)
+            }
+        },
     )
 }
 
@@ -94,9 +99,10 @@ fun PersonalTodoMoreContent(
     onTodoItemClicked: (Long) -> Unit = {},
     onKeyboardActionClicked: (Long, String) -> Unit,
     onTodoContentChanged: (Long, String) -> Unit,
+    onCompleteButtonClicked: (List<String>) -> Unit = {},
 ) {
 
-    val focusState = LocalFocusManager.current
+    val focusManager = LocalFocusManager.current
 
     val focusRequester = FocusRequester()
 
@@ -110,7 +116,7 @@ fun PersonalTodoMoreContent(
     val bottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
-        skipHalfExpanded = false
+        skipHalfExpanded = true
     )
 
     state.todayTodoItems.getDataOrNull()?.let { todoItems ->
@@ -143,6 +149,9 @@ fun PersonalTodoMoreContent(
                     bottomSheetScope.launch {
                         bottomSheetState.hide()
                     }
+                },
+                onCompleteButtonClicked = {
+                    onCompleteButtonClicked(it)
                 }
             ) {
 
@@ -246,7 +255,7 @@ fun PersonalTodoMoreContent(
                                                 }
                                             },
                                             onKeyboardActionClicked = {
-                                                focusState.clearFocus()
+                                                focusManager.clearFocus()
                                                 onKeyboardActionClicked(
                                                     todoItem.id,
                                                     todoItem.content
