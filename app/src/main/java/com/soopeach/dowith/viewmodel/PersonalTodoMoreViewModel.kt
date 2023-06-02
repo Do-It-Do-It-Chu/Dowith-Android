@@ -2,6 +2,7 @@ package com.soopeach.dowith.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.soopeach.domain.model.TodoItem
+import com.soopeach.domain.usecase.DeleteTodoUseCase
 import com.soopeach.domain.usecase.GetTodayTodoItemsUseCase
 import com.soopeach.domain.usecase.ModifyTodoContentUseCase
 import com.soopeach.domain.usecase.PostTodoToggleUseCase
@@ -26,6 +27,7 @@ class PersonalTodoMoreViewModel @Inject constructor(
     private val getTodayTodoItemsUseCase: GetTodayTodoItemsUseCase,
     private val postTodoToggleUseCase: PostTodoToggleUseCase,
     private val modifyTodoContentUseCase: ModifyTodoContentUseCase,
+    private val deleteTodoUseCase: DeleteTodoUseCase
 ) : ViewModel(), ContainerHost<PersonalTodoMoreState, PersonalTodoMoreSideEffect> {
 
     override val container =
@@ -73,6 +75,15 @@ class PersonalTodoMoreViewModel @Inject constructor(
                     if (it.id == id) modifiedTodoItem else it
                 }
             ))
+        }
+    }
+
+    // TODO: Todo Item Delete
+    fun deleteTodoItem(id: Long) = intent {
+        deleteTodoUseCase(id).let { isDeleted ->
+            if (isDeleted) {
+                getTodayTodoItems()
+            }
         }
     }
 
