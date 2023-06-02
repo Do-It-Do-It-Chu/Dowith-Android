@@ -35,6 +35,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -79,11 +81,8 @@ fun PersonalTodoMoreScreen(
         onKeyboardActionClicked = { id, content ->
             viewModel.modifyTodoContent(id, content)
         },
-        onTodoContentChanged = { id, content ->
-            viewModel.modifyTodoContentInMemory(id, content)
-        },
         onCompleteButtonClicked = { todoContents ->
-            todoContents.forEach {  content ->
+            todoContents.forEach { content ->
                 viewModel.postTodoItem(content)
             }
         },
@@ -98,7 +97,6 @@ fun PersonalTodoMoreContent(
     onDeleteMenuClicked: (Long) -> Unit = {},
     onTodoItemClicked: (Long) -> Unit = {},
     onKeyboardActionClicked: (Long, String) -> Unit,
-    onTodoContentChanged: (Long, String) -> Unit,
     onCompleteButtonClicked: (List<String>) -> Unit = {},
 ) {
 
@@ -254,17 +252,12 @@ fun PersonalTodoMoreContent(
                                                     bottomSheetState.show()
                                                 }
                                             },
-                                            onKeyboardActionClicked = {
+                                            onKeyboardActionClicked = { changedContent ->
                                                 focusManager.clearFocus()
-                                                onKeyboardActionClicked(
-                                                    todoItem.id,
-                                                    todoItem.content
-                                                )
+                                                onKeyboardActionClicked(todoItem.id, changedContent)
                                                 targetTodoItemId = TodoItem.NOT_SELECTED
                                             }
-                                        ) { changedText ->
-                                            onTodoContentChanged(todoItem.id, changedText)
-                                        }
+                                        )
                                     }
                                 }
                             }
