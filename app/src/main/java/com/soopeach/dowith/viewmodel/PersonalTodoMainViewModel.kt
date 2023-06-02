@@ -30,11 +30,7 @@ class PersonalTodoMainViewModel @Inject constructor(
     override val container =
         container<PersonalTodoMainState, PersonalTodoMainSideEffect>(PersonalTodoMainState())
 
-    init {
-        getTodayTodoItems()
-    }
-
-    private fun getTodayTodoItems() = intent {
+    fun getTodayTodoItems() = intent {
         reduce {
             state.copy(todayTodoItems = UiState.Loading)
         }
@@ -48,14 +44,16 @@ class PersonalTodoMainViewModel @Inject constructor(
     fun setTodoToggle(id: Long) = intent {
 
         // TODO: Error Handling
-        postTodoToggleUseCase(id)
+        val toggleChangedPost = postTodoToggleUseCase(id)
         reduce {
-            val previousTodoItems = state.todayTodoItems.getDataOrNull() ?: emptyList()
             state.copy(todayTodoItems = UiState.Success(
                 previousTodoItems.map {
-                    if (it.id == id) it.copy(isChecked = it.isChecked.not()) else it
+                    if (it.id == toggleChangedPost.id) toggleChangedPost else it
                 }
             ))
         }
     }
+
+    private val previousTodoItems: List<TodoItem>
+        get() = container.stateFlow.value.todayTodoItems.getDataOrNull() ?: emptyList()
 }

@@ -17,12 +17,13 @@ class TodoDataSourceImpl @Inject constructor(
 
     override suspend fun postTodoToggle(id: Long): TodoItem {
         // TODO: Call Api
+        dummyItems = dummyItems.map { if (it.id == id) it.copy(isChecked = it.isChecked.not()) else it }
         return dummyItems.first { it.id == id }
     }
 
     override suspend fun putTodoContent(id: Long, content: String): TodoItem {
         // TODO: Call Api
-        dummyItems.map { if (it.id == id) it.copy(content = content) else it }
+        dummyItems = dummyItems.map { if (it.id == id) it.copy(content = content) else it }
         return dummyItems.first { it.id == id }
     }
 }
