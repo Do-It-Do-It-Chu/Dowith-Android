@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.soopeach.dowith.ui.component.button.DoWithButton
 import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.SimplifiedTodoContainer
+import com.soopeach.dowith.ui.component.TodoItemComposable
 import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.viewmodel.PersonalTodoMainState
@@ -75,12 +77,36 @@ fun PersonalTodoMainContent(
             Spacer(modifier = Modifier.height(54.dp))
 
             state.todayTodoItems.getDataOrNull()?.let { todoItems ->
-                SimplifiedTodoContainer(todoItems.take(2), onTodoIconClicked = {
-                    onTodoItemClicked(it)
-                }) {
-                    onMoreClicked()
+                if (todoItems.isEmpty()) {
+
+                    SimplifiedTodoContainer(
+                        onMoreClicked = onMoreClicked
+                    ) {
+                        DoWithButton(text = "작성하러 가기")
+                    }
+
+
+                } else {
+
+                    SimplifiedTodoContainer(
+                        onMoreClicked = onMoreClicked
+                    ) {
+                        todoItems.forEach {
+                            TodoItemComposable(
+                                todoItem = it,
+                                modifier = Modifier.fillMaxWidth(),
+                                isMoreIconVisible = false,
+                                onTodoIconClicked = {
+                                    onTodoItemClicked(it.id)
+                                }
+                            )
+
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
+                    }
                 }
             }
         }
     }
 }
+
