@@ -21,18 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.soopeach.domain.model.TodoItem
 import com.soopeach.dowith.ui.icons.CheckBoxIcon
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 
 @Composable
 fun SimplifiedTodoContainer(
-    todoItems: List<TodoItem>,
-    onTodoIconClicked: (Long) -> Unit = {},
-    onMoreIconClicked: () -> Unit = {}
+    onMoreClicked: () -> Unit = {},
+    content: @Composable () -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,7 +60,7 @@ fun SimplifiedTodoContainer(
 
                 Row(
                     modifier = Modifier.clickable {
-                        onMoreIconClicked()
+                        onMoreClicked()
                     },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -82,18 +79,8 @@ fun SimplifiedTodoContainer(
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            todoItems.forEach {
-                TodoItemComposable(
-                    todoItem = it,
-                    modifier = Modifier.fillMaxWidth(),
-                    isMoreIconVisible = false,
-                    onTodoIconClicked = {
-                        onTodoIconClicked(it.id)
-                    }
-                )
 
-                Spacer(modifier = Modifier.height(16.dp))
-            }
+            content()
         }
 
     }

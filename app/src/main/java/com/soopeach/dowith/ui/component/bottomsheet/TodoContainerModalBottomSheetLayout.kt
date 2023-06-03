@@ -65,9 +65,7 @@ fun TodoContainerModalBottomSheetLayout(
     onModifyButtonClicked: () -> Unit = {},
     onDeleteButtonClicked: () -> Unit = {},
     onCompleteButtonClicked: (List<String>) -> Unit = {},
-    content: @Composable () -> Unit = {
-
-    },
+    content: @Composable () -> Unit = {},
 ) {
 
     val focusManager = LocalFocusManager.current

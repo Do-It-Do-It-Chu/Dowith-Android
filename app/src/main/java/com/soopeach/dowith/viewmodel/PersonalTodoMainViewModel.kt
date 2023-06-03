@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.soopeach.domain.model.TodoItem
 import com.soopeach.domain.usecase.GetTodayTodoItemsUseCase
 import com.soopeach.domain.usecase.PostTodoToggleUseCase
+import com.soopeach.domain.usecase.PostTodoUseCase
 import com.soopeach.dowith.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
@@ -23,7 +24,8 @@ data class PersonalTodoMainState(
 @HiltViewModel
 class PersonalTodoMainViewModel @Inject constructor(
     private val getTodayTodoItemsUseCase: GetTodayTodoItemsUseCase,
-    private val postTodoToggleUseCase: PostTodoToggleUseCase
+    private val postTodoToggleUseCase: PostTodoToggleUseCase,
+    private val postTodoUseCase: PostTodoUseCase
 ) : ViewModel(),
     ContainerHost<PersonalTodoMainState, PersonalTodoMainSideEffect> {
 
@@ -51,6 +53,17 @@ class PersonalTodoMainViewModel @Inject constructor(
                     if (it.id == toggleChangedPost.id) toggleChangedPost else it
                 }
             ))
+        }
+    }
+
+    fun postTodoItem(content: String) = intent {
+        val newTodoItem = postTodoUseCase(content)
+        reduce {
+            state.copy(
+                todayTodoItems = UiState.Success(
+                    previousTodoItems + newTodoItem
+                )
+            )
         }
     }
 
