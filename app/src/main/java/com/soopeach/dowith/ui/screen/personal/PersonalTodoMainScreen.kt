@@ -77,20 +77,13 @@ fun PersonalTodoMainContent(
             Spacer(modifier = Modifier.height(54.dp))
 
             state.todayTodoItems.getDataOrNull()?.let { todoItems ->
-                if (todoItems.isEmpty()) {
 
-                    SimplifiedTodoContainer(
-                        onMoreClicked = onMoreClicked
-                    ) {
+                SimplifiedTodoContainer(
+                    onMoreClicked = onMoreClicked
+                ) {
+                    if (todoItems.isEmpty()) {
                         DoWithButton(text = "작성하러 가기")
-                    }
-
-
-                } else {
-
-                    SimplifiedTodoContainer(
-                        onMoreClicked = onMoreClicked
-                    ) {
+                    } else {
                         todoItems.forEach {
                             TodoItemComposable(
                                 todoItem = it,
@@ -100,7 +93,6 @@ fun PersonalTodoMainContent(
                                     onTodoItemClicked(it.id)
                                 }
                             )
-
                             Spacer(modifier = Modifier.height(16.dp))
                         }
                     }
