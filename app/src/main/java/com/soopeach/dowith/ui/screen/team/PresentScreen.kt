@@ -36,7 +36,7 @@ fun PresentScreen(
             navController.popBackStack()
         },
         onStartButtonClicked = {
-            navController.navigate(Screen.CategorySelectScreen.route)
+            navController.navigate(Screen.CategorySelect.route)
         }
     )
 }

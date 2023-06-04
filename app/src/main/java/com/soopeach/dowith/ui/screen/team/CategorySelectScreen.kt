@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import com.soopeach.dowith.model.Category
 import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.TeamTodoCategoryItem
+import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 import com.soopeach.dowith.utils.bouncingClickable
@@ -34,6 +35,7 @@ fun CategorySelectScreen(
         },
         onCategoryItemClicked = {
             // TODO: join Team
+            navController.popBackStack(Screen.TeamTodoMain.route, false)
         }
     )
 }

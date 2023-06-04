@@ -95,11 +95,11 @@ fun AppScreen() {
                 PersonalTodoMoreScreen(navController)
             }
 
-            composable(Screen.PresentScreen.route) {
+            composable(Screen.Present.route) {
                 PresentScreen(navController)
             }
 
-            composable(Screen.CategorySelectScreen.route) {
+            composable(Screen.CategorySelect.route) {
                 CategorySelectScreen(navController)
             }
 
