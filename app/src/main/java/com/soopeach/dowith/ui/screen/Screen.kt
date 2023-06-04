@@ -21,6 +21,7 @@ sealed class Screen(
 
     object PersonalTodoMore : Screen("personalTodoMore")
     object PresentScreen : Screen("presentScreen")
+    object CategorySelectScreen : Screen("categorySelectScreen")
 
     companion object {
         val bottomNavigationItems = listOf(PersonalTodoMain, TeamTodoMain, Done)
