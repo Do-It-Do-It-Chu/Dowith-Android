@@ -20,6 +20,7 @@ sealed class Screen(
     object Done : Screen("done", R.string.done, DoneMenu)
 
     object PersonalTodoMore : Screen("personalTodoMore")
+    object PresentScreen : Screen("presentScreen")
 
     companion object {
         val bottomNavigationItems = listOf(PersonalTodoMain, TeamTodoMain, Done)
