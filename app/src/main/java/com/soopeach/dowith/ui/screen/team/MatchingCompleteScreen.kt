@@ -1,49 +1,50 @@
 package com.soopeach.dowith.ui.screen.team
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.soopeach.dowith.model.Category
 import com.soopeach.dowith.ui.component.DoWithTopBar
-import com.soopeach.dowith.ui.component.TeamTodoCategoryItem
+import com.soopeach.dowith.ui.component.button.DoWithButton
+import com.soopeach.dowith.ui.icons.DoneIcon
 import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
-import com.soopeach.dowith.utils.bouncingClickable
 
 @Composable
-fun CategorySelectScreen(
-    navController: NavController,
+fun MatchingCompleteScreen(
+    navController: NavController
 ) {
-    CategorySelectContent(
+    MatchingCompleteContent(
         onTopBarNavigationIconClicked = {
             navController.popBackStack()
         },
-        onCategoryItemClicked = {
-            // TODO: join Team
-            navController.navigate(Screen.MatchingComplete.route)
+        onButtonClicked = {
+            navController.popBackStack(Screen.TeamTodoMain.route, false)
         }
     )
 }
 
 @Composable
-fun CategorySelectContent(
+fun MatchingCompleteContent(
     onTopBarNavigationIconClicked: () -> Unit = {},
-    onCategoryItemClicked: () -> Unit = {}
+    onButtonClicked: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -57,42 +58,43 @@ fun CategorySelectContent(
                     )
                 }
             )
-        }) { paddingValues ->
+        }
+    ) { paddingValues ->
 
         Column(
             modifier = Modifier
-                .padding(paddingValues = paddingValues)
+                .fillMaxHeight()
+                .padding(paddingValues)
                 .padding(horizontal = 20.dp)
-
+                .padding(bottom = 40.dp)
+                .background(Color.White),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(48.dp))
 
-            Text(
-                text = "원하시는 투두의\n카테고리를 선택해주세요!",
-                style = DoWithTypography.Title1.copy(DoWithColors.gray800)
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(22.dp),
-                horizontalArrangement = Arrangement.spacedBy(22.dp),
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Icon(
+                    modifier = Modifier.size(54.dp),
+                    imageVector = DoneIcon, contentDescription = "완료 아이콘",
+                    tint = DoWithColors.orange1000
+                )
 
-                Category.values().forEach {
-                    item {
-                        TeamTodoCategoryItem(
-                            modifier = Modifier.bouncingClickable {
-                                onCategoryItemClicked()
-                            },
-                            category = it
-                        )
-                    }
-                }
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Text(
+                    text = "팀 매칭을 완료했어요!",
+                    style = DoWithTypography.Title1.copy(DoWithColors.gray800),
+                )
+            }
+
+            DoWithButton(text = "확인") {
+                onButtonClicked()
             }
         }
     }
 }
-

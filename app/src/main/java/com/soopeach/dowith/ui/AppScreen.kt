@@ -25,6 +25,7 @@ import com.soopeach.dowith.ui.screen.Screen.Companion.bottomNavigationItems
 import com.soopeach.dowith.ui.screen.personal.PersonalTodoMainScreen
 import com.soopeach.dowith.ui.screen.personal.PersonalTodoMoreScreen
 import com.soopeach.dowith.ui.screen.team.CategorySelectScreen
+import com.soopeach.dowith.ui.screen.team.MatchingCompleteScreen
 import com.soopeach.dowith.ui.screen.team.PresentScreen
 import com.soopeach.dowith.ui.screen.team.TeamTodoMainScreen
 import com.soopeach.dowith.ui.theme.DoWithColors
@@ -101,6 +102,10 @@ fun AppScreen() {
 
             composable(Screen.CategorySelect.route) {
                 CategorySelectScreen(navController)
+            }
+
+            composable(Screen.MatchingComplete.route) {
+                MatchingCompleteScreen(navController)
             }
 
         }
