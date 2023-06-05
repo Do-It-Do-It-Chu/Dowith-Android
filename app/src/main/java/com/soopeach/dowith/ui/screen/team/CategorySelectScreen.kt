@@ -48,6 +48,7 @@ fun CategorySelectContent(
     Scaffold(
         topBar = {
             DoWithTopBar(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 navigationIcon = {
                     Icon(
                         modifier = Modifier.clickable {
@@ -55,7 +56,8 @@ fun CategorySelectContent(
                         },
                         imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "뒤로가기",
                     )
-                }
+                },
+                isMenusVisible = false
             )
         }) { paddingValues ->
 

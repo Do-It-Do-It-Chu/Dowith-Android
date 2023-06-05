@@ -35,8 +35,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -121,6 +119,7 @@ fun PersonalTodoMoreContent(
         Scaffold(
             topBar = {
                 DoWithTopBar(
+                    modifier = Modifier.padding(horizontal = 20.dp),
                     navigationIcon = {
                         Icon(
                             modifier = Modifier.clickable {
@@ -128,7 +127,8 @@ fun PersonalTodoMoreContent(
                             },
                             imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "뒤로가기",
                         )
-                    }
+                    },
+                    isMenusVisible = false
                 )
             }
         ) { paddingValues ->

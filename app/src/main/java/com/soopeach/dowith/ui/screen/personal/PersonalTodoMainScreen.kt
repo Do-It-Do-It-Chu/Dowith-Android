@@ -88,7 +88,9 @@ fun PersonalTodoMainContent(
     ) {
         Scaffold(
             topBar = {
-                DoWithTopBar()
+                DoWithTopBar(
+                    modifier = Modifier.padding(horizontal = 20.dp)
+                )
             }) { paddingValues ->
 
             Column(

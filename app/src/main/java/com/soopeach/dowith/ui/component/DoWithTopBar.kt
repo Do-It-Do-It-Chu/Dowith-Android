@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
@@ -25,37 +24,38 @@ import com.soopeach.dowith.ui.theme.DoWithColors
 
 @Composable
 fun DoWithTopBar(
+    modifier: Modifier = Modifier,
     navigationIcon: @Composable (() -> Unit)? = null,
+    isMenusVisible: Boolean = true,
     onNotificationClicked: () -> Unit = {},
     onMyPageClicked: () -> Unit = {}
 ) {
     TopAppBar(
-        backgroundColor = Color.White,
+        backgroundColor = Color.White.copy(0f),
         modifier = Modifier
             .height(60.dp),
         elevation = 0.dp
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+            modifier = modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
 
             navigationIcon?.invoke() ?: run {
-
                 Image(
                     modifier = Modifier.size(60.dp, 23.dp),
                     contentScale = ContentScale.Crop,
                     imageVector = Logo,
                     contentDescription = "두윗 로고"
                 )
+            }
 
+            if (isMenusVisible) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-
                     Icon(
                         modifier = Modifier
                             .size(24.dp)
@@ -81,7 +81,6 @@ fun DoWithTopBar(
                     )
                 }
             }
-
         }
     }
 }

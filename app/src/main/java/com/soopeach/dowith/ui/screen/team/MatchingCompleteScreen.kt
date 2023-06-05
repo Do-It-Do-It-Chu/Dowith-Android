@@ -49,6 +49,7 @@ fun MatchingCompleteContent(
     Scaffold(
         topBar = {
             DoWithTopBar(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 navigationIcon = {
                     Icon(
                         modifier = Modifier.clickable {
@@ -56,7 +57,8 @@ fun MatchingCompleteContent(
                         },
                         imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "뒤로가기",
                     )
-                }
+                },
+                isMenusVisible = false
             )
         }
     ) { paddingValues ->
