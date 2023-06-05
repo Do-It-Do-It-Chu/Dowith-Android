@@ -61,7 +61,7 @@ fun DoWithTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = colorScheme.copy(background = Color.White),
         typography = Typography,
         content = content
     )
