@@ -65,61 +65,68 @@ fun TeamTodoMainContent(
             painter = painterResource(id = R.drawable.background), contentDescription = "배경",
             contentScale = ContentScale.Crop
         )
-        state.todayTodoItem.getDataOrNull()?.let { todoItem ->
 
-            Column(
-                modifier = Modifier
-                    .padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+        // TODO: Pager
+        state.myTeamInfoList.getDataOrNull()?.teamInfoList?.first().let { teamInfo ->
 
-            ) {
+            teamInfo?.let {
+                Column(
+                    modifier = Modifier
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
 
-                DoWithTopBar()
-
-                Spacer(modifier = Modifier.height(56.dp))
-
-                Box(
-                    Modifier.fillMaxWidth()
                 ) {
 
-                    val level =
-                        (todoItem.characterLevel.toFloat() / todoItem.characterMaxLevel) * 100
-                    LevelIndicator(level, false)
+                    DoWithTopBar()
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+                    Spacer(modifier = Modifier.height(56.dp))
 
-                        BalloonText("안녕하세요 반가워요.")
-
-                        Spacer(modifier = Modifier.height(14.dp))
-
-                        // TODO: Character
-                        Image(
-                            painter = painterResource(id = DoWithCharacter.Saboten.SABOTEN_FIRST.imageResource),
-                            contentDescription = ""
-                        )
-
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(54.dp))
-
-                SimplifiedTodoContainer(
-                    onMoreClicked = onMoreClicked
-                ) {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        Modifier.fillMaxWidth()
                     ) {
-                        Text(text = todoItem.recommendTodo,
-                        style = DoWithTypography.Body2.copy(DoWithColors.gray900),
-                        textAlign = TextAlign.Center)
+
+                        val level =
+                            (it.characterLevel.toFloat() / it.characterMaxLevel) * 100
+                        LevelIndicator(level, false)
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+
+                            BalloonText("안녕하세요 반가워요.")
+
+                            Spacer(modifier = Modifier.height(14.dp))
+
+                            // TODO: Character
+                            Image(
+                                painter = painterResource(id = DoWithCharacter.Saboten.SABOTEN_FIRST.imageResource),
+                                contentDescription = "캐릭터 이미지"
+                            )
+
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(54.dp))
+
+                    SimplifiedTodoContainer(
+                        onMoreClicked = onMoreClicked
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = it.recommendTodo,
+                                style = DoWithTypography.Body2.copy(DoWithColors.gray900),
+                                textAlign = TextAlign.Center)
+                        }
                     }
                 }
+            } ?: run {
+                // TODO: join new team
             }
+
         }
     }
 

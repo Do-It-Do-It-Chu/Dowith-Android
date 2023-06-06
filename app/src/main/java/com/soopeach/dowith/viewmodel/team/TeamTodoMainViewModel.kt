@@ -1,8 +1,8 @@
 package com.soopeach.dowith.viewmodel.team
 
 import androidx.lifecycle.ViewModel
-import com.soopeach.domain.model.SimpleTeamTodoItem
-import com.soopeach.domain.usecase.GetSimpleTeamTodoDataUseCase
+import com.soopeach.domain.model.TeamInfoList
+import com.soopeach.domain.usecase.GetTeamInfoListUseCase
 import com.soopeach.dowith.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
@@ -16,12 +16,12 @@ sealed class TeamTodoMainSideEffect {
 }
 
 data class TeamTodoMainState(
-    val todayTodoItem: UiState<SimpleTeamTodoItem> = UiState.Idle
+    val myTeamInfoList: UiState<TeamInfoList> = UiState.Idle
 )
 
 @HiltViewModel
 class TeamTodoMainViewModel @Inject constructor(
-    private val getSimpleTeamTodoDataUseCase: GetSimpleTeamTodoDataUseCase
+    private val getTeamInfoListUseCase: GetTeamInfoListUseCase
 ) : ViewModel(), ContainerHost<TeamTodoMainState, TeamTodoMainSideEffect> {
 
     override val container =
@@ -30,13 +30,13 @@ class TeamTodoMainViewModel @Inject constructor(
     fun getTodayTodoItem() = intent {
 
         reduce {
-            state.copy(todayTodoItem = UiState.Loading)
+            state.copy(myTeamInfoList = UiState.Loading)
         }
 
-        val todayTodoItem = getSimpleTeamTodoDataUseCase(1, 1)
+        val teamInfoList = getTeamInfoListUseCase()
 
         reduce {
-            state.copy(todayTodoItem = UiState.Success(todayTodoItem))
+            state.copy(myTeamInfoList = UiState.Success(teamInfoList))
         }
     }
 }

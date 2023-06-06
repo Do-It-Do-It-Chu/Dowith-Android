@@ -1,16 +1,14 @@
 package com.soopeach.domain.repository
 
-import com.soopeach.domain.model.SimpleTeamTodoItem
+import com.soopeach.domain.model.TeamInfoList
 import com.soopeach.domain.model.TeamTodoItem
 import com.soopeach.domain.model.response.TeamTodoCheckResponse
 
 interface TeamRepository {
 
-    suspend fun getSimpleTeamTodoData(
-        categoryId: Long,
+    suspend fun getTeamInfoList(
         userId: Long,
-        teamId: Long,
-    ): SimpleTeamTodoItem
+    ): TeamInfoList
 
     suspend fun getTeamTodoData(
         userId: Long,

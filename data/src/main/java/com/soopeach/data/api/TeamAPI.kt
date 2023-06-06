@@ -1,6 +1,6 @@
 package com.soopeach.data.api
 
-import com.soopeach.domain.model.SimpleTeamTodoItem
+import com.soopeach.domain.model.TeamInfoList
 import com.soopeach.domain.model.TeamTodoItem
 import com.soopeach.domain.model.request.TeamTodoCheckRequest
 import com.soopeach.domain.model.response.TeamTodoCheckResponse
@@ -11,12 +11,10 @@ import retrofit2.http.Path
 
 interface TeamAPI {
 
-    @GET("/teamTodo/{categoryId}/{userId}/{teamId}")
-    suspend fun getSimpleTeamTodoData(
-        @Path("categoryId") categoryId: Long,
+    @GET("/teamTodo/{userId}")
+    suspend fun getTeamInfoList(
         @Path("userId") userId: Long,
-        @Path("teamId") teamId: Long,
-    ): SimpleTeamTodoItem
+    ): TeamInfoList
 
     @GET("/detail/{userId}/{teamId}")
     suspend fun getTeamTodoData(

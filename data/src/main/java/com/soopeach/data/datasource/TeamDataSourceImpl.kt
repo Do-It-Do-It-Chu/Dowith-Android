@@ -1,7 +1,7 @@
 package com.soopeach.data.datasource
 
 import com.soopeach.data.api.TeamAPI
-import com.soopeach.domain.model.SimpleTeamTodoItem
+import com.soopeach.domain.model.TeamInfoList
 import com.soopeach.domain.model.TeamTodoItem
 import com.soopeach.domain.model.request.TeamTodoCheckRequest
 import com.soopeach.domain.model.response.TeamTodoCheckResponse
@@ -12,13 +12,10 @@ import javax.inject.Singleton
 class TeamDataSourceImpl @Inject constructor(
     private val teamAPI: TeamAPI
 ) : TeamDataSource {
-    override suspend fun getSimpleTeamTodoData(
-        categoryId: Long,
+    override suspend fun getTeamInfoList(
         userId: Long,
-        teamId: Long
-    ): SimpleTeamTodoItem {
-        // TODO: categoryId, teamId
-        return teamAPI.getSimpleTeamTodoData(1, userId, 1)
+    ): TeamInfoList {
+        return teamAPI.getTeamInfoList(userId)
     }
 
     override suspend fun getTeamTodoData(userId: Long, teamId: Long): TeamTodoItem {
