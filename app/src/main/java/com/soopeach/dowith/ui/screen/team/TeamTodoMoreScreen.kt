@@ -45,6 +45,9 @@ fun TeamTodoMoreScreen(
         onCompleteButtonClicked = {
             viewModel.postTeamTodoCheck()
         },
+        onTopBarNavigationIconClicked = {
+            navController.popBackStack()
+        },
         onNotifyIconClicked = { targetUserId, token ->
             viewModel.postNotification(targetUserId, token)
         }
