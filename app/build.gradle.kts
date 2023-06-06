@@ -126,4 +126,8 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
     implementation("com.google.firebase:firebase-analytics-ktx")
 
+    // lottie
+    val lottieVersion = "6.0.0"
+    implementation("com.airbnb.android:lottie-compose:$lottieVersion")
+
 }
