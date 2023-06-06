@@ -30,7 +30,7 @@ import com.soopeach.dowith.ui.theme.DoWithTypography
 @Composable
 fun TeamMemberComposable(
     teamUserData: TeamUserData,
-    onNotificationButtonClicked: (Int) -> Unit = {}
+    onNotificationButtonClicked: (String, String) -> Unit
 ) {
 
     Box(
@@ -84,7 +84,9 @@ fun TeamMemberComposable(
                         .clickable(
                             enabled = teamUserData.checked.not(),
                             onClick = {
-                                onNotificationButtonClicked(teamUserData.userId)
+                                teamUserData.let {
+                                    onNotificationButtonClicked(it.nickname, it.token)
+                                }
                             }
                         ),
                     imageVector = if (teamUserData.checked) CantNotifyIcon else CanNotifyIcon,

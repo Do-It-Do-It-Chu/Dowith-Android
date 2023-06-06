@@ -5,6 +5,7 @@ import com.soopeach.domain.model.TeamTodoItem
 import com.soopeach.domain.model.TeamUserData
 import com.soopeach.domain.usecase.GetTeamTodoItemUseCase
 import com.soopeach.domain.usecase.GetUserIdUseCase
+import com.soopeach.domain.usecase.PostNotificationUseCase
 import com.soopeach.domain.usecase.PostTeamTodoCheckUseCase
 import com.soopeach.dowith.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,7 @@ class TeamTodoMoreViewModel @Inject constructor(
     private val getUserIdUseCase: GetUserIdUseCase,
     private val getTeamTodoItemUseCase: GetTeamTodoItemUseCase,
     private val postTeamTodoCheckUseCase: PostTeamTodoCheckUseCase,
+    private val postNotificationUseCase: PostNotificationUseCase
 ) : ViewModel(), ContainerHost<TeamTodoMoreState, TeamTodoMoreSideEffect> {
 
     override val container =
@@ -71,6 +73,13 @@ class TeamTodoMoreViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    fun postNotification(
+        targetUserNickname: String,
+        token: String
+    ) = intent {
+        postNotificationUseCase(targetUserNickname, previousMyUserData.nickname, token)
     }
 
     private val previousMyUserData

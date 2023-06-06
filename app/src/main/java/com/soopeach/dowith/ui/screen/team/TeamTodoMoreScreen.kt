@@ -44,7 +44,11 @@ fun TeamTodoMoreScreen(
     TeamTodoMoreContent(state,
         onCompleteButtonClicked = {
             viewModel.postTeamTodoCheck()
-        })
+        },
+        onNotifyIconClicked = { targetUserId, token ->
+            viewModel.postNotification(targetUserId, token)
+        }
+    )
 }
 
 @Composable
@@ -52,7 +56,7 @@ fun TeamTodoMoreContent(
     state: TeamTodoMoreState,
     onTopBarNavigationIconClicked: () -> Unit = {},
     onCompleteButtonClicked: () -> Unit = {},
-    onNotifyIconClicked: (Int) -> Unit = {},
+    onNotifyIconClicked: (String, String) -> Unit,
 ) {
 
     Column(
@@ -129,8 +133,8 @@ fun TeamTodoMoreContent(
             teamTodoItem.teamUserDataList.forEach { userData ->
 
                 if (userData.userId != myUserData.userId) {
-                    TeamMemberComposable(userData) {
-                        onNotifyIconClicked(it)
+                    TeamMemberComposable(userData) { targetUserId, token ->
+                        onNotifyIconClicked(targetUserId, token)
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                 }
