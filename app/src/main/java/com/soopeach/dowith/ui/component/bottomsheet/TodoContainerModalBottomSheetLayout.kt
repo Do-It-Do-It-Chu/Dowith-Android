@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -194,12 +193,7 @@ fun TodoContainerModalBottomSheetLayout(
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        Box(
-                            modifier = Modifier
-                                .size(40.dp, 4.dp)
-                                .clip(RoundedCornerShape(11.dp))
-                                .background(color = DoWithColors.gray400)
-                        )
+                        HandleBar()
 
                         Spacer(modifier = Modifier.height(34.dp))
 
