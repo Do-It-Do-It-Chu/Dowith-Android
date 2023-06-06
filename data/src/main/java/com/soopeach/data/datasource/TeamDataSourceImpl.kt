@@ -2,6 +2,7 @@ package com.soopeach.data.datasource
 
 import com.soopeach.data.api.TeamAPI
 import com.soopeach.domain.model.SimpleTeamTodoItem
+import com.soopeach.domain.model.TeamTodoItem
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,4 +14,9 @@ class TeamDataSourceImpl @Inject constructor(
         // TODO: categoryId, teamId
         return teamAPI.getSimpleTeamTodoData(1, userId, 1)
     }
+
+    override suspend fun getTeamTodoData(userId: Long, teamId: Long): TeamTodoItem {
+        return teamAPI.getTeamTodoData(userId, teamId)
+    }
+
 }
