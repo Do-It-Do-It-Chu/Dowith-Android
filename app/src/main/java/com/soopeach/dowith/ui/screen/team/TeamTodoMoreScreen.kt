@@ -68,12 +68,17 @@ fun TeamTodoMoreContent(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // TODO: User name
-        NicknameTodoListExplainText(false, nickname = "두잇츄")
-
-        Spacer(modifier = Modifier.height(18.dp))
-
         state.teamTodoItem.getDataOrNull()?.let { teamTodoItem ->
+
+            val myUserData = requireNotNull(state.myUserData.getDataOrNull())
+
+            NicknameTodoListExplainText(
+                false,
+                nickname = myUserData.nickname
+            )
+
+            Spacer(modifier = Modifier.height(18.dp))
+
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))
@@ -102,10 +107,13 @@ fun TeamTodoMoreContent(
             Spacer(modifier = Modifier.height(10.dp))
 
             teamTodoItem.teamUserDataList.forEach { userData ->
-                TeamMemberComposable(userData) {
-                    onNotifyIconClicked(it)
+
+                if (userData.userId != myUserData.userId) {
+                    TeamMemberComposable(userData) {
+                        onNotifyIconClicked(it)
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
-                Spacer(modifier = Modifier.height(10.dp))
             }
         }
     }
