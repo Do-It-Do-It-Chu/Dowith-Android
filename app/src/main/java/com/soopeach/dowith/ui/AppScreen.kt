@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.soopeach.dowith.ui.screen.done.DoneScreen
 import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.screen.Screen.Companion.bottomNavigationItems
+import com.soopeach.dowith.ui.screen.team.BonusScreen
 import com.soopeach.dowith.ui.screen.personal.PersonalTodoMainScreen
 import com.soopeach.dowith.ui.screen.personal.PersonalTodoMoreScreen
 import com.soopeach.dowith.ui.screen.team.CategorySelectScreen
@@ -111,6 +112,10 @@ fun AppScreen() {
 
             composable(Screen.TeamTodoMore.route) {
                 TeamTodoMoreScreen(navController)
+            }
+
+            composable(Screen.Bonus.route) {
+                BonusScreen(navController)
             }
 
         }
