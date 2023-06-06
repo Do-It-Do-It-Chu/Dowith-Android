@@ -16,20 +16,19 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
+    private val clientBuilder = OkHttpClient.Builder().apply {
+        addInterceptor(
+            HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        )
+    }
+
+    private val contentType = "application/json".toMediaType()
+
     @Provides
     @Singleton
     fun provideClient(): Retrofit {
-
-        val clientBuilder = OkHttpClient.Builder().apply {
-            addInterceptor(
-                HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                }
-            )
-        }
-
-        val contentType = "application/json".toMediaType()
-
         return Retrofit
             .Builder()
             .baseUrl(BASE_URL)
@@ -37,8 +36,20 @@ class NetworkModule {
             .client(clientBuilder.build()).build()
     }
 
+    @Provides
+    @Singleton
+    @FCMClient
+    fun provideFCMClient(): Retrofit {
+        return Retrofit
+            .Builder()
+            .baseUrl(FCM_BASE_URL)
+            .addConverterFactory(Json.asConverterFactory(contentType))
+            .client(clientBuilder.build()).build()
+    }
+
     companion object {
         private const val BASE_URL = "https://port-0-doit-backend-das6e2dlig0er28.sel4.cloudtype.app/"
+        private const val FCM_BASE_URL = "https://us-central1-do-with.cloudfunctions.net/"
     }
 
 }
