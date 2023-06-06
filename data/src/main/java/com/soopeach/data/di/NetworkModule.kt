@@ -38,8 +38,7 @@ class NetworkModule {
     }
 
     companion object {
-        // TODO: Set API URL
-        private const val BASE_URL = "https://api.github.com/"
+        private const val BASE_URL = "https://port-0-doit-backend-das6e2dlig0er28.sel4.cloudtype.app/"
     }
 
 }
