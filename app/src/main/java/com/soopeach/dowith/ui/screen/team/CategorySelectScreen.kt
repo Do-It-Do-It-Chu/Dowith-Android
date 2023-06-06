@@ -34,7 +34,6 @@ fun CategorySelectScreen(
             navController.popBackStack()
         },
         onCategoryItemClicked = {
-            // TODO: join Team
             navController.navigate(Screen.MatchingComplete.route)
         }
     )
