@@ -26,6 +26,7 @@ import com.soopeach.dowith.ui.component.BalloonText
 import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.SimplifiedTodoContainer
 import com.soopeach.dowith.ui.component.progressbar.LevelIndicator
+import com.soopeach.dowith.ui.screen.Screen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 import com.soopeach.dowith.viewmodel.team.TeamTodoMainState
@@ -45,7 +46,7 @@ fun TeamTodoMainScreen(
     }
 
     TeamTodoMainContent(state) {
-        // Todo: navigate to More Screen
+        navController.navigate(Screen.TeamTodoMore.route)
     }
 }
 
