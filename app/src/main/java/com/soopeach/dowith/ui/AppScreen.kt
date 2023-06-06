@@ -28,6 +28,7 @@ import com.soopeach.dowith.ui.screen.team.CategorySelectScreen
 import com.soopeach.dowith.ui.screen.team.MatchingCompleteScreen
 import com.soopeach.dowith.ui.screen.team.PresentScreen
 import com.soopeach.dowith.ui.screen.team.TeamTodoMainScreen
+import com.soopeach.dowith.ui.screen.team.TeamTodoMoreScreen
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 
@@ -106,6 +107,10 @@ fun AppScreen() {
 
             composable(Screen.MatchingComplete.route) {
                 MatchingCompleteScreen(navController)
+            }
+
+            composable(Screen.TeamTodoMore.route) {
+                TeamTodoMoreScreen(navController)
             }
 
         }

@@ -20,6 +20,7 @@ sealed class Screen(
     object Done : Screen("done", R.string.done, DoneMenu)
 
     object PersonalTodoMore : Screen("personalTodoMore")
+    object TeamTodoMore : Screen("teamTodoMore")
     object Present : Screen("present")
     object CategorySelect : Screen("categorySelect")
     object MatchingComplete : Screen("matchingComplete")
