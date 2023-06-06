@@ -49,6 +49,7 @@ fun PresentContent(
     Scaffold(
         topBar = {
             DoWithTopBar(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 navigationIcon = {
                     Icon(
                         modifier = Modifier.clickable {
