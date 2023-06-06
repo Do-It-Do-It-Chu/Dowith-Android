@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -23,6 +24,7 @@ import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.NicknameTodoListExplainText
 import com.soopeach.dowith.ui.component.TeamMemberComposable
 import com.soopeach.dowith.ui.component.button.DoWithButton
+import com.soopeach.dowith.ui.component.button.DoWithOrangeButton
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 import com.soopeach.dowith.viewmodel.team.TeamTodoMoreState
@@ -39,7 +41,10 @@ fun TeamTodoMoreScreen(
     LaunchedEffect(true) {
         viewModel.getTeamTodoData()
     }
-    TeamTodoMoreContent(state)
+    TeamTodoMoreContent(state,
+        onCompleteButtonClicked = {
+            viewModel.postTeamTodoCheck()
+        })
 }
 
 @Composable
@@ -91,12 +96,27 @@ fun TeamTodoMoreContent(
 
                 Text(
                     text = teamTodoItem.recommendTodo,
-                    style = DoWithTypography.Body2.copy(DoWithColors.gray900)
+                    style = DoWithTypography.Body2.copy(
+                        color = if (myUserData.checked.not()) DoWithColors.gray900 else DoWithColors.gray600,
+                        textDecoration = if (myUserData.checked.not()) null else TextDecoration.LineThrough
+                    )
                 )
                 Spacer(modifier = Modifier.height(30.dp))
 
-                DoWithButton(text = "완료하기") {
-                    onCompleteButtonClicked()
+                if (myUserData.checked.not()) {
+                    DoWithButton(
+                        text = "완료하기"
+                    ) {
+                        onCompleteButtonClicked()
+                    }
+                } else {
+
+                    // TODO: enabled = false
+                    DoWithOrangeButton(
+                        text = "완료했어요!"
+                    ) {
+                        onCompleteButtonClicked()
+                    }
                 }
             }
 
