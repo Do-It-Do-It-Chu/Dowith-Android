@@ -1,4 +1,4 @@
-package com.soopeach.dowith.ui.component
+package com.soopeach.dowith.ui.component.progressbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,6 +17,9 @@ fun VerticalProgressBar(
     progress: Float
 ) {
     Box(
+        modifier = Modifier
+            .width(8.dp)
+            .height(332.dp),
         contentAlignment = Alignment.BottomCenter,
     ) {
 
