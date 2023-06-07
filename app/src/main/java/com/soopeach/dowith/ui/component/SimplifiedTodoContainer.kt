@@ -1,5 +1,6 @@
 package com.soopeach.dowith.ui.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.soopeach.dowith.ui.icons.CheckBoxIcon
+import com.soopeach.dowith.ui.icons.CalendarIcon
 import com.soopeach.dowith.ui.theme.DoWithColors
 import com.soopeach.dowith.ui.theme.DoWithTypography
 
@@ -45,11 +46,12 @@ fun SimplifiedTodoContainer(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Row {
-                    Icon(
-                        imageVector = CheckBoxIcon,
-                        contentDescription = "체크 박스 아이콘",
-                        tint = DoWithColors.orange1000
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        CalendarIcon,
+                        contentDescription = "달력 아이콘",
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
