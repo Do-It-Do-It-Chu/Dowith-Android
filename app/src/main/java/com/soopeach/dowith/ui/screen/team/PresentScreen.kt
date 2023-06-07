@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -14,7 +15,6 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -69,7 +69,6 @@ fun PresentContent(
                 .padding(horizontal = 20.dp)
                 .background(Color.White),
             verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -83,6 +82,7 @@ fun PresentContent(
 
             Image(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .shaking(),
                 painter = painterResource(id = R.drawable.present), contentDescription = "선물 상자 이미지"
             )
