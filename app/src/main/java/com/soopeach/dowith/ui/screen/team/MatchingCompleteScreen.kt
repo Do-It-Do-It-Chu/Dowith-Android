@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,11 +16,18 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.soopeach.dowith.R
 import com.soopeach.dowith.ui.component.DoWithTopBar
 import com.soopeach.dowith.ui.component.button.DoWithButton
 import com.soopeach.dowith.ui.icons.DoneIcon
@@ -98,5 +106,16 @@ fun MatchingCompleteContent(
                 onButtonClicked()
             }
         }
+
+        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.fire_cracker))
+        val progress by animateLottieCompositionAsState(composition)
+
+        LottieAnimation(
+            modifier = Modifier.fillMaxSize(),
+            composition = composition,
+            progress = { progress },
+            contentScale = ContentScale.FillHeight
+        )
+
     }
 }
