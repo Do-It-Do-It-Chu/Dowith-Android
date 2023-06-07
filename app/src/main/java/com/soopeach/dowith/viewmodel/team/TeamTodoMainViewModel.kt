@@ -27,7 +27,7 @@ class TeamTodoMainViewModel @Inject constructor(
     override val container =
         container<TeamTodoMainState, TeamTodoMainSideEffect>(TeamTodoMainState())
 
-    fun getTodayTodoItem() = intent {
+    fun getMyTeamInfoList() = intent {
 
         reduce {
             state.copy(myTeamInfoList = UiState.Loading)

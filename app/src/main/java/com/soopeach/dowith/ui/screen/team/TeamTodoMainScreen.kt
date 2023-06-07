@@ -42,7 +42,7 @@ fun TeamTodoMainScreen(
     val state by viewModel.collectAsState()
 
     LaunchedEffect(true) {
-        viewModel.getTodayTodoItem()
+        viewModel.getMyTeamInfoList()
     }
 
     TeamTodoMainContent(state) {
