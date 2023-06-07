@@ -16,7 +16,9 @@ sealed class TeamTodoMainSideEffect {
 }
 
 data class TeamTodoMainState(
-    val myTeamInfoList: UiState<TeamInfoList> = UiState.Idle
+    val myTeamInfoList: UiState<TeamInfoList> = UiState.Idle,
+    // flag for test
+    val hasTeam: Boolean = false
 )
 
 @HiltViewModel
@@ -37,6 +39,12 @@ class TeamTodoMainViewModel @Inject constructor(
 
         reduce {
             state.copy(myTeamInfoList = UiState.Success(teamInfoList))
+        }
+    }
+
+    fun joinTeam() = intent {
+        reduce {
+            state.copy(hasTeam = true)
         }
     }
 }
