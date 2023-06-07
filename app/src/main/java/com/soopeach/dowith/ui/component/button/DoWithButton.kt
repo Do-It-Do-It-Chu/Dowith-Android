@@ -17,6 +17,7 @@ import com.soopeach.dowith.ui.theme.DoWithTypography
 fun DoWithButton(
     modifier: Modifier = Modifier,
     text: String,
+    backgroundColor: Color = DoWithColors.gray800,
     onButtonClicked: () -> Unit = {}
 ) {
     Button(
@@ -25,7 +26,7 @@ fun DoWithButton(
             .height(48.dp),
         shape = RoundedCornerShape(12.dp),
         onClick = { onButtonClicked() },
-        colors = ButtonDefaults.buttonColors(backgroundColor = DoWithColors.gray800),
+        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
     ) {
         Text(
             text = text,
